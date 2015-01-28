@@ -1,0 +1,104 @@
+Created by http://gitignore.io
+
+### vim ###
+.*.s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+*~
+
+### OSX ###
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+### Rails ###
+*.rbc
+*.sassc
+.sass-cache
+capybara-*.html
+.rspec
+.rvmrc
+.ruby-gemset
+.ruby-version
+/.bundle
+/vendor/bundle
+/log/*
+/tmp/*
+/db/*.sqlite3
+/public/system/*
+/coverage/
+/spec/tmp/*
+**.orig
+rerun.txt
+pickle-email-*.html
+.project
+!.keep
+
+
+### Ruby ###
+*.gem
+*.rbc
+.bundle
+.config
+coverage
+InstalledFiles
+lib/bundler/man
+pkg
+rdoc
+spec/reports
+test/tmp
+test/version_tmp
+tmp
+
+# YARD artifacts
+.yardoc
+_yardoc
+doc/
+
+### SublimeText ###
+# SublimeText project files
+*.sublime-workspace
+
+### Windows ###
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Created by http://www.gitignore.io
+#
+# ### Node ###
+lib-cov
+lcov.info
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+
+pids
+logs
+results
+build
+.grunt
+
+node_modules
+
+
