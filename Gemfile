@@ -20,10 +20,16 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'libv8','3.16.14.7'
 
 group :development, :test do
+  gem 'sqlite3',     '1.3.9'
   gem 'quiet_assets'
   gem 'gettext', '>=1.9.3', :require => false
   gem 'capistrano'
   gem 'rvm-capistrano'
+end
+
+group :production do
+  gem 'pg',             '0.17.1'
+  gem 'rails_12factor', '0.0.2'
 end
 
 gem 'unicorn'
