@@ -1,4 +1,4 @@
-%script{src: '/javascripts/rtc/client_signaling.js'}
+%script{src: 'http://webrtc-rails-britt.herokuapp.com/javascripts/rtc/client_signaling.js'}
 .container
   .row
     #video-grid
@@ -146,6 +146,7 @@
     attachMediaStream(remoteVideo, null);
   }
 
+  // user hangs up call
   $("#js-hangup").on("click", function () {
     stop();
     socket.emit('message', {type: 'by', room: room});
@@ -156,9 +157,10 @@
     socket.emit('message', {type: 'by', room: room});
   }
 
+  // request a TURN server
   requestTurn('https://computeengineondemand.appspot.com/turn?username=41784574&key=4080218913');
 
-  // Try to start, initiates the RTCPeerConnection NOT WORKING
+  // Try to start, initiates the RTCPeerConnection
   function maybeStart() {
     if (isChannelReady && !isStarted && typeof localStream != 'undefined'){
       pc                = new RTCPeerConnection(pc_config, pc_constraints);
