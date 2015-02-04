@@ -1,6 +1,6 @@
 //var socket = io.connect('192.168.1.37:2013');
- // var socket = io.connect('10.0.0.138:2013'); meee
- var socket = io.connect('https://webrtc-rails-britt.herokuapp.com/')
+ var socket = io.connect('10.0.0.138:2013');
+ // var socket = io.connect('https://webrtc-rails-britt.herokuapp.com/')
 
 // var room = "room-name" //prompt("Enter room name:");
 var room = window.location.pathname.replace("/", "");

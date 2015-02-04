@@ -1,4 +1,5 @@
-var http = require('http');
+var http = require('http'); // To use the HTTP server and client
+// createServer Returns a new web server object
 var app = http.createServer(function (req, res) {
 }).listen(2013);
 
