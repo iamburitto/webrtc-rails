@@ -1,7 +1,4 @@
-%script{src: 'http://webrtc-rails-britt.herokuapp.com/javascripts/rtc/client_signaling.js'}
-%script{src: 'http://webrtc-rails-britt.herokuapp.com/rtc/node_modules/socket.io/lib/socket.io.js'}
-%script{src: 'http://code.jquery.com/jquery-1.10.1.min.js'}
-
+%script{src: '/javascripts/rtc/client_signaling.js'}
 
 .container
   .row
@@ -34,22 +31,26 @@
   $sendButton.on('click', sendIM);
   $inputIM.on('keypress', checkEnterKey);
 
+  // send a message through the socket
   function sendIM() {
     var content = $inputIM.val();
     $inputIM.val("");
     socket.emit('message',{message: {content: content, user: user_name}, type: 'im', room: room});
   }
 
+  // click the send button when enter key is pressed
   function checkEnterKey(event) {
     if ( event.keyCode == 13 ) {
       $sendButton.click();
     }
   }
 
+  // stick new instant message onto the chat body
   function appendNewIM(user, message) {
     $chatBody.prepend(mediaObjectIM(user, message));
   }
 
+  // ???
   function mediaObjectIM(user, message) {
     var leftRight = user === user_name ? 'right' : 'left'
     return "  <div class='media'>"+
@@ -63,8 +64,8 @@
            "  </div>"
   }
   ///////////////////////////////////////////////////////////////////////////
-
-  var pc = null;
+  /* webrtc peer connection stuffs*/
+  var pc = null; // RTCPeerConnection object
   var localStream;
   var isStarted;
   var isInitiator;
@@ -102,6 +103,7 @@
   //     }
   //   ]
   // }
+
   var sdpConstraints = 
     {'mandatory': 
       {
@@ -200,6 +202,7 @@
 
   function startCall(){
     console.log("Do Call");
+    // Create offer generates a blob of description data to facilitate a PeerConnection to the local machine. Use this when you've got a remote Peer connection and you want to set up the local one.
     pc.createOffer(setLocalAndSendMessageOffer, handleCreateOfferError);
   }
 
@@ -217,12 +220,14 @@
   }
 
   function setLocalAndSendMessageOffer(offer) {
+    console.log('setLocalAndSendMessageOffer');
     offer.sdp = preferOpus(offer.sdp);
     pc.setLocalDescription(offer); 
     socket.emit('message', {room: room, type: 'offer', message: offer})
   }
   
   function setLocalAndSendMessageAnswer(answer) {
+    console.log('setLocalAndSendMessageAnswer');
     answer.sdp = preferOpus(answer.sdp);
     pc.setLocalDescription(answer); 
     socket.emit('message', {room: room, type: 'answer', message: answer})
@@ -236,8 +241,8 @@
         turnReady = true;
         break;
       }
-      console.log("turn exists: ",turnExists);
     }
+    console.log("turnexists: ",turnExists);
     if (!turnExists) {
       console.log('Getting TURN server from ', turn_url);
       // No TURN server. Get one from computeengineondemand.appspot.com:
@@ -257,9 +262,10 @@
       xhr.send();
     }
   }
-  // Set Opus as the default audio codec if it's present.
+  // Set Opus as the default audio codec if it's present. THIS IS WHERE ITS GOING WRONG
   function preferOpus(sdp) {
     var sdpLines = sdp.split('\r\n');
+    console.log('sdpLines in preferOp: ', sdpLines);
     var mLineIndex;
     // Search for m line.
     for (var i = 0; i < sdpLines.length; i++) {
